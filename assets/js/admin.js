@@ -1,6 +1,93 @@
 jQuery(document).ready(function($) {
     'use strict';
 
+    // Student selection controls
+    $('#select-all-students').on('click', function() {
+        $('.las-student-list input[type="checkbox"]').prop('checked', true);
+        updateStudentCount();
+    });
+    
+    $('#select-none-students').on('click', function() {
+        $('.las-student-list input[type="checkbox"]').prop('checked', false);
+        updateStudentCount();
+    });
+    
+    $('#select-random-students').on('click', function() {
+        const $checkboxes = $('.las-student-list input[type="checkbox"]');
+        $checkboxes.prop('checked', false);
+        
+        // Select random 20 students
+        const totalStudents = $checkboxes.length;
+        const numToSelect = Math.min(20, totalStudents);
+        const selectedIndices = [];
+        
+        while (selectedIndices.length < numToSelect) {
+            const randomIndex = Math.floor(Math.random() * totalStudents);
+            if (selectedIndices.indexOf(randomIndex) === -1) {
+                selectedIndices.push(randomIndex);
+            }
+        }
+        
+        selectedIndices.forEach(function(index) {
+            $checkboxes.eq(index).prop('checked', true);
+        });
+        
+        updateStudentCount();
+    });
+    
+    // Update student count when checkboxes change
+    $('.las-student-list input[type="checkbox"]').on('change', updateStudentCount);
+    
+    function updateStudentCount() {
+        const selectedCount = $('.las-student-list input[type="checkbox"]:checked').length;
+        const totalCount = $('.las-student-list input[type="checkbox"]').length;
+        $('.las-student-count').text(`Selected: ${selectedCount} / ${totalCount} students`);
+    }
+    
+    // Initialize count
+    updateStudentCount();
+
+    // Quiz selection controls
+    $('#select-all-quizzes').on('click', function() {
+        $('.las-quiz-list input[type="checkbox"]').prop('checked', true);
+        updateQuizCount();
+    });
+    
+    $('#select-none-quizzes').on('click', function() {
+        $('.las-quiz-list input[type="checkbox"]').prop('checked', false);
+        updateQuizCount();
+    });
+    
+    $('#select-enforce-hint-quizzes').on('click', function() {
+        $('.las-quiz-list input[type="checkbox"]').prop('checked', false);
+        $('.las-quiz-list label[data-enforce-hint="1"] input[type="checkbox"]').prop('checked', true);
+        updateQuizCount();
+    });
+    
+    $('#select-real-quizzes').on('click', function() {
+        $('.las-quiz-list input[type="checkbox"]').prop('checked', false);
+        $('.las-quiz-list label[data-enforce-hint="0"] input[type="checkbox"]').prop('checked', true);
+        updateQuizCount();
+    });
+    
+    // Update quiz count when checkboxes change
+    $('.las-quiz-list input[type="checkbox"]').on('change', updateQuizCount);
+    
+    function updateQuizCount() {
+        const selectedCount = $('.las-quiz-list input[type="checkbox"]:checked').length;
+        const totalCount = $('.las-quiz-list input[type="checkbox"]').length;
+        const enforceHintCount = $('.las-quiz-list label[data-enforce-hint="1"] input[type="checkbox"]:checked').length;
+        const realQuizCount = $('.las-quiz-list label[data-enforce-hint="0"] input[type="checkbox"]:checked').length;
+        
+        if ($('.las-quiz-count').length === 0) {
+            $('.las-quiz-controls').append('<span class="las-quiz-count"></span>');
+        }
+        $('.las-quiz-count').html(`Selected: ${selectedCount} / ${totalCount} quizzes<br><small>Enforce Hint: ${enforceHintCount}, Real Quizzes: ${realQuizCount}</small>`);
+    }
+    
+    // Initialize quiz count
+    updateQuizCount();
+
     // Handle Generate Activity form submission
     $('#las-generate-form').on('submit', function(e) {
         e.preventDefault();

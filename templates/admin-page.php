@@ -15,12 +15,18 @@
             <div class="las-form-section">
                 <h3><?php _e('Select Students', 'learndash-activity-simulator'); ?></h3>
                 <?php if (!empty($this->students)) : ?>
-                    <div class="las-checkbox-group">
+                    <div class="las-student-controls">
+                        <button type="button" id="select-all-students"><?php _e('Select All', 'learndash-activity-simulator'); ?></button>
+                        <button type="button" id="select-none-students"><?php _e('Select None', 'learndash-activity-simulator'); ?></button>
+                        <button type="button" id="select-random-students"><?php _e('Select Random 20', 'learndash-activity-simulator'); ?></button>
+                        <span class="las-student-count"><?php printf(__('Total: %d students', 'learndash-activity-simulator'), count($this->students)); ?></span>
+                    </div>
+                    <div class="las-checkbox-group las-student-list" style="max-height: 300px; overflow-y: auto; border: 1px solid #ddd; padding: 10px;">
                         <?php foreach ($this->students as $student) : ?>
-                            <label>
+                            <label style="display: block; margin-bottom: 5px;">
                                 <input type="checkbox" name="students[]" value="<?php echo esc_attr($student->ID); ?>">
                                 <?php echo esc_html($student->display_name); ?> (<?php echo esc_html($student->user_email); ?>)
-                            </label><br>
+                            </label>
                         <?php endforeach; ?>
                     </div>
                 <?php else : ?>
@@ -41,6 +47,37 @@
                     </div>
                 <?php else : ?>
                     <p class="las-no-data"><?php _e('No courses found.', 'learndash-activity-simulator'); ?></p>
+                <?php endif; ?>
+            </div>
+            
+            <div class="las-form-section">
+                <h3><?php _e('Select Quizzes for Testing', 'learndash-activity-simulator'); ?></h3>
+                <?php if (!empty($this->quizzes)) : ?>
+                    <div class="las-quiz-controls">
+                        <button type="button" id="select-all-quizzes"><?php _e('Select All', 'learndash-activity-simulator'); ?></button>
+                        <button type="button" id="select-none-quizzes"><?php _e('Select None', 'learndash-activity-simulator'); ?></button>
+                        <button type="button" id="select-enforce-hint-quizzes"><?php _e('Select Enforce Hint Only', 'learndash-activity-simulator'); ?></button>
+                        <button type="button" id="select-real-quizzes"><?php _e('Select Real Quizzes Only', 'learndash-activity-simulator'); ?></button>
+                    </div>
+                    <div class="las-checkbox-group las-quiz-list" style="max-height: 250px; overflow-y: auto; border: 1px solid #ddd; padding: 10px;">
+                        <?php foreach ($this->quizzes as $quiz_id) : 
+                            $enforce_hint = get_post_meta($quiz_id, '_ld_quiz_enforce_hint', true);
+                            $is_enforce_hint = ($enforce_hint === '1');
+                        ?>
+                            <label style="display: block; margin-bottom: 5px;" data-enforce-hint="<?php echo $is_enforce_hint ? '1' : '0'; ?>">
+                                <input type="checkbox" name="quizzes[]" value="<?php echo esc_attr($quiz_id); ?>">
+                                <?php echo esc_html(get_the_title($quiz_id)); ?>
+                                <?php if ($is_enforce_hint) : ?>
+                                    <span style="color: #d63638; font-weight: bold;">[ENFORCE HINT]</span>
+                                <?php else : ?>
+                                    <span style="color: #00a32a; font-weight: bold;">[REAL QUIZ]</span>
+                                <?php endif; ?>
+                            </label>
+                        <?php endforeach; ?>
+                    </div>
+                    <p class="description"><?php _e('Select specific quizzes to generate activity for. Enforce Hint quizzes are marked in red and should be excluded from averages.', 'learndash-activity-simulator'); ?></p>
+                <?php else : ?>
+                    <p class="las-no-data"><?php _e('No quizzes found.', 'learndash-activity-simulator'); ?></p>
                 <?php endif; ?>
             </div>
             

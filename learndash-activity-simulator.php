@@ -135,12 +135,33 @@ class LearnDash_Activity_Simulator {
             'fields' => 'ids'
         ));
 
-        // Get students (non-administrators with student role)
-        $this->students = get_users(array(
-            'role__in' => array('student_school', 'student_private'),
+        // Get all users except administrators (like the teacher dashboard does)
+        $all_users = get_users(array(
             'fields' => array('ID', 'display_name', 'user_email'),
-            'number' => 10 // Limit to 10 students for performance
+            'number' => -1, // Get all users
+            'orderby' => 'display_name',
+            'order' => 'ASC'
         ));
+        
+        // Filter out administrators and keep only actual students
+        $this->students = array_filter($all_users, function($user) {
+            $user_obj = get_userdata($user->ID);
+            if (!$user_obj) return false;
+            
+            // Exclude administrators and other admin-level roles
+            $admin_roles = array('administrator', 'editor', 'author', 'contributor');
+            $user_roles = $user_obj->roles;
+            
+            // Check if user has any admin roles
+            foreach ($admin_roles as $admin_role) {
+                if (in_array($admin_role, $user_roles)) {
+                    return false;
+                }
+            }
+            
+            // Include users who have student-like roles or no specific roles (likely students)
+            return true;
+        });
     }
 
     public function ajax_generate_activity() {
