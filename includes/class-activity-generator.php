@@ -335,7 +335,7 @@ class LAS_Activity_Generator {
                 'course_id' => $course_id,
                 'post_id' => $quiz_id,
                 'activity_type' => 'quiz',
-                'activity_status' => 1, // Always completed if we're generating it
+                'activity_status' => $is_passed ? 1 : 0, // Set based on pass/fail status
                 'activity_started' => $started,
                 'activity_completed' => $completed,
                 'activity_updated' => $completed
