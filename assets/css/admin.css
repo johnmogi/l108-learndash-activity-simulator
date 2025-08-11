@@ -1,0 +1,245 @@
+/* Main Container */
+.learndash-activity-simulator {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Cards */
+.las-card {
+    background: #fff;
+    border: 1px solid #ccd0d4;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+    margin: 20px 0;
+    padding: 20px;
+}
+
+.las-card h2 {
+    margin-top: 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+/* Form Sections */
+.las-form-section {
+    margin-bottom: 25px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+}
+
+.las-form-section h3 {
+    margin-top: 0;
+    color: #23282d;
+}
+
+/* Checkbox Groups */
+.las-checkbox-group {
+    max-height: 200px;
+    overflow-y: auto;
+    padding: 10px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.las-checkbox-group label {
+    display: block;
+    padding: 5px 0;
+    cursor: pointer;
+}
+
+.las-checkbox-group label:hover {
+    background-color: #f5f5f5;
+}
+
+/* Buttons & Actions */
+.las-actions {
+    margin: 20px 0;
+    padding: 10px 0;
+    border-top: 1px solid #eee;
+}
+
+.las-actions .button {
+    margin-right: 8px;
+}
+
+/* Notices */
+.las-notice {
+    margin: 10px 0 20px;
+    padding: 10px 12px;
+    border-left: 4px solid #00a0d2;
+}
+
+.las-notice.notice-success {
+    border-left-color: #46b450;
+}
+
+.las-notice.notice-error {
+    border-left-color: #dc3232;
+}
+
+.las-notice.notice-warning {
+    border-left-color: #ffb900;
+}
+
+/* Responsive Tables */
+.las-table-responsive {
+    overflow-x: auto;
+    margin: 20px 0;
+}
+
+.las-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.las-table th,
+.las-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.las-table th {
+    background-color: #f5f5f5;
+    font-weight: 600;
+}
+
+/* Export Results */
+#las-export-results {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border: 1px solid #e5e5e5;
+    margin-top: 20px;
+}
+
+/* No Data Message */
+.las-no-data {
+    font-style: italic;
+    color: #666;
+    padding: 10px;
+    background: #fff;
+    border: 1px dashed #ddd;
+    text-align: center;
+}
+
+/* Spinner Alignment */
+.spinner {
+    float: none;
+    margin-top: 0;
+    margin-left: 10px;
+}
+
+/* Responsive */
+@media screen and (max-width: 782px) {
+    .las-checkbox-group {
+        max-height: 300px;
+    }
+    
+    .las-actions .button {
+        display: block;
+        margin-bottom: 10px;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .las-actions .spinner {
+        float: right;
+        margin-top: 5px;
+    }
+}
+
+/* Help Text */
+.las-help-text {
+    color: #666;
+    font-style: italic;
+    margin-top: 5px;
+}
+
+/* Toggle Links */
+.las-toggle-links {
+    margin: 10px 0;
+}
+
+.las-toggle-links a {
+    margin-right: 15px;
+    text-decoration: none;
+}
+
+.las-toggle-links a:hover {
+    text-decoration: underline;
+}
+
+/* Progress Bar */
+.las-progress {
+    background-color: #f1f1f1;
+    border-radius: 3px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) inset;
+    height: 20px;
+    margin: 10px 0;
+    width: 100%;
+}
+
+.las-progress-bar {
+    background-color: #0073aa;
+    border-radius: 3px;
+    height: 100%;
+    transition: width 0.3s ease-in-out;
+    width: 0;
+}
+
+/* Status Indicators */
+.las-status {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.las-status-active {
+    background-color: #46b450;
+}
+
+.las-status-inactive {
+    background-color: #a00;
+}
+
+.las-status-pending {
+    background-color: #ffb900;
+}
+
+/* Tabs */
+.las-tabs {
+    display: flex;
+    border-bottom: 1px solid #ccc;
+    margin: 20px 0;
+}
+
+.las-tab {
+    padding: 10px 15px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-bottom: none;
+    margin-right: 5px;
+    background: #f1f1f1;
+    border-radius: 4px 4px 0 0;
+}
+
+.las-tab-active {
+    background: #fff;
+    border-color: #ccc;
+    border-bottom-color: #fff;
+    margin-bottom: -1px;
+}
+
+.las-tab-content {
+    display: none;
+    padding: 20px 0;
+}
+
+.las-tab-content-active {
+    display: block;
+}
